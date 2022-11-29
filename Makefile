@@ -6,7 +6,7 @@
 #    By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 11:50:05 by vicgarci          #+#    #+#              #
-#    Updated: 2022/11/29 13:56:11 by vicgarci         ###   ########.fr        #
+#    Updated: 2022/11/29 18:10:02 by vicgarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS = ${FILES:.c=.o}
 all: libft glfw3 $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(LIBFT) $(GLFW3) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBFT) $(GLFW3) $(OBJS) -o $(NAME) -framework Cocoa -framework OpenGL -framework IOKit
 
 clean:
 	$(RM) $(OBJS)
