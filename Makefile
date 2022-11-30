@@ -6,7 +6,7 @@
 #    By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 11:50:05 by vicgarci          #+#    #+#              #
-#    Updated: 2022/11/30 13:58:38 by vicgarci         ###   ########.fr        #
+#    Updated: 2022/11/30 16:41:04 by vicgarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ RM = rm -f
 
 FILES = src/flx_open_window.c \
 		src/flx_main_loop.c \
+		src/flx_putimg.c \
 		src/main.c
 
 OBJS = ${FILES:.c=.o}
