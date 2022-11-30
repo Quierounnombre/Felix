@@ -6,7 +6,7 @@
 #    By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 11:50:05 by vicgarci          #+#    #+#              #
-#    Updated: 2022/11/30 12:22:56 by vicgarci         ###   ########.fr        #
+#    Updated: 2022/11/30 13:58:38 by vicgarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,9 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -O3
 RM = rm -f
 
-FILES = open_window.c \
-		main.c
+FILES = src/flx_open_window.c \
+		src/flx_main_loop.c \
+		src/main.c
 
 OBJS = ${FILES:.c=.o}
 

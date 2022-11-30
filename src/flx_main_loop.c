@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   flx_main_loop.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 11:54:19 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/11/30 12:34:04 by vicgarci         ###   ########.fr       */
+/*   Created: 2022/11/30 13:49:08 by vicgarci          #+#    #+#             */
+/*   Updated: 2022/11/30 13:58:44 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Felix.h"
 
-int	main(void)
+void	flx_main_loop(GLFWwindow *window)
 {
-	if (glfwInit())
+	while (!glfwWindowShouldClose(window))
 	{
-		ft_printf("ABRO");
-		if (open_window())
-		{
-			ft_printf("HOLA");
-
-		}
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glfwSwapBuffers(window);
+		glfwPollEvents();
 	}
-	glfwTerminate();
 }
