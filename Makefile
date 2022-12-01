@@ -6,7 +6,7 @@
 #    By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 11:50:05 by vicgarci          #+#    #+#              #
-#    Updated: 2022/11/30 16:41:04 by vicgarci         ###   ########.fr        #
+#    Updated: 2022/12/01 16:39:09 by vicgarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,11 @@ RM = rm -f
 
 FILES = src/flx_open_window.c \
 		src/flx_main_loop.c \
-		src/flx_putimg.c \
+		src/flx_init.c \
+		src/flx_terminate.c \
 		src/main.c
+
+#src/flx_putimg.c
 
 OBJS = ${FILES:.c=.o}
 

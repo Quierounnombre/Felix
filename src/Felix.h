@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/01 13:38:41 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:38:47 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,29 @@
 #  define WINDOW_NAME "Felix"
 # endif
 
-t_bool	flx_open_window(int width, int height, GLFWwindow **window);
+# ifndef HEIGHT
+#  define HEIGHT 800
+# endif
+
+# ifndef WIDTH
+#  define WIDTH 800
+# endif
+
+typedef	struct felix
+{
+	GLFWwindow	*window;
+	void		*context;
+	int			widht;
+	int			height;
+	double		delta_time;
+	char		*name;
+}				flx_t;
+
+
+t_bool	flx_open_window(flx_t *flx);
 void	flx_main_loop(GLFWwindow *window);
-void	flx_putimg(GLFWwindow *window);
+//void	flx_putimg(GLFWwindow *window, GLFWimage *image, GLuint x, GLuint y);
+flx_t	*flx_init(void);
+void 	flx_terminate(flx_t *flx);
 
 #endif
