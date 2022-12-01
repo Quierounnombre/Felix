@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:55:33 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/01 16:27:24 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:45:26 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ static t_bool	init_window(flx_t *flx)
 	}
 	glfwMakeContextCurrent(flx->window);
 	glfwGetFramebufferSize(flx->window, &flx->height, &flx->widht);
-	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	return (true);
 }
