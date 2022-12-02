@@ -6,7 +6,7 @@
 #    By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 11:50:05 by vicgarci          #+#    #+#              #
-#    Updated: 2022/12/01 16:54:36 by vicgarci         ###   ########.fr        #
+#    Updated: 2022/12/02 18:20:00 by vicgarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,11 @@ clean:
 	$(MAKE) clean -C ./glfw_build
 	$(MAKE) clean -C ./glad
 
+clean_felix:
+	$(RM) $(OBJS)
+
 fclean: clean
 	$(RM) $(NAME) $(LIBFT) $(GLFW3) $(GLAD)
-
 
 re: fclean libft glfw3 $(NAME)
 
@@ -58,4 +60,4 @@ glfw3:
 norma:
 	@echo 6966205b5b2024286e6f726d696e65747465207c206772657020274572726f7227207c207763202d6c29202d65712030205d5d3b207468656e206e6f726d696e657474653b20656c736520286e6f726d696e65747465207c206772657020274572726f7227293b206669 | xxd -r -p | zsh
 
-.PHONY: all clean fclean re libft norma glad glfw3
+.PHONY: all clean fclean re libft norma glad glfw3 clean_felix

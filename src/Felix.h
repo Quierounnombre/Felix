@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/01 16:47:55 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:36:03 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,16 @@ typedef	struct felix
 	char		*name;
 }				flx_t;
 
+typedef struct image
+{
+	GLFWimage	*img;
+	int			width;
+	int			height;
+	void		*context;
+	uint8_t		pixels;
+}				flx_img;
 
-t_bool	flx_open_window(void);
+void	flx_open_window(void);
 void	flx_main_loop(GLFWwindow *window);
 //void	flx_putimg(GLFWwindow *window, GLFWimage *image, GLuint x, GLuint y);
 flx_t	*flx_init(void);
