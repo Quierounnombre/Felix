@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/06 15:22:01 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/06 19:28:33 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,20 @@ typedef struct s_felix
 	int			widht;
 	int			height;
 	double		delta_time;
+	GLuint		vao;
+	GLuint		vbo;
 	char		*name;
 }				t_flx;
+
+typedef struct vertex
+{
+	float	x;
+	float	y;
+	float	z;
+	float	u;
+	float	v;
+	int8_t	tex;
+}			t_vertex;
 
 typedef struct s_image
 {

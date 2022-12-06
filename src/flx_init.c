@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:55:33 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/06 15:16:33 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/06 19:30:28 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ t_flx	*flx_init(void)
 			if (glfwInit())
 			{
 				if (init_window(flx))
+				{
 					return (flx);
+				}
 				glfwTerminate();
 			}
 			free(flx);
@@ -43,6 +45,22 @@ static void	init_struct(t_flx *flx)
 	flx->height = WIDTH;
 	flx->widht = HEIGHT;
 	flx->name = WINDOW_NAME;
+	glActiveTexture(GL_TEXTURE0);
+	glGenVertexArrays(1, &(flx->vao));
+	glGenBuffers(1, &(flx->vbo));
+	glBindVertexArray(flx->vao);
+	glBindBuffer(GL_ARRAY_BUFFER, flx->vbo);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(t_vertex), NULL);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(t_vertex),
+		(void *)(sizeof(float) * 3));
+	glEnableVertexAttribArray(1);
+	glVertexAttribIPointer(2, 1, GL_BYTE, sizeof(t_vertex),
+		(void *)(sizeof(float) * 5));
+	glEnableVertexAttribArray(2);
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 static t_bool	check_params(void)
