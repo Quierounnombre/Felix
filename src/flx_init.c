@@ -6,42 +6,55 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:55:33 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/01 16:45:26 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:16:33 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Felix.h"
 
-static void		init_struct(flx_t	*flx);
-static t_bool	init_window(flx_t	*flx);
+static void		init_struct(t_flx	*flx);
+static t_bool	init_window(t_flx	*flx);
+static t_bool	check_params(void);
 
-flx_t	*flx_init(void)
+t_flx	*flx_init(void)
 {
-	flx_t	*flx;
-	
-	flx = malloc(sizeof(flx));
-	if (flx)
+	t_flx	*flx;
+
+	if (check_params())
 	{
-		init_struct(flx);
-		if (glfwInit())
+		flx = malloc(sizeof(flx));
+		if (flx)
 		{
-			if (init_window(flx))
-				return (flx);
-			glfwTerminate();
+			init_struct(flx);
+			if (glfwInit())
+			{
+				if (init_window(flx))
+					return (flx);
+				glfwTerminate();
+			}
+			free(flx);
 		}
-		free(flx);
 	}
 	return (NULL);
 }
 
-static void init_struct(flx_t *flx)
+static void	init_struct(t_flx *flx)
 {
 	flx->height = WIDTH;
 	flx->widht = HEIGHT;
 	flx->name = WINDOW_NAME;
 }
 
-static t_bool	init_window(flx_t *flx)
+static t_bool	check_params(void)
+{
+	if (WIDTH >= INT16_MAX)
+		return (false);
+	else if (HEIGHT >= INT16_MAX)
+		return (false);
+	return (true);
+}
+
+static t_bool	init_window(t_flx *flx)
 {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

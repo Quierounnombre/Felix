@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/02 18:36:03 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:22:01 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #  define WIDTH 800
 # endif
 
-typedef	struct felix
+typedef struct s_felix
 {
 	GLFWwindow	*window;
 	void		*context;
@@ -37,21 +37,20 @@ typedef	struct felix
 	int			height;
 	double		delta_time;
 	char		*name;
-}				flx_t;
+}				t_flx;
 
-typedef struct image
+typedef struct s_image
 {
-	GLFWimage	*img;
-	int			width;
-	int			height;
-	void		*context;
-	uint8_t		pixels;
-}				flx_img;
+	unsigned int	width;
+	unsigned int	height;
+	void			*context;
+	uint8_t			*pixels;
+}				t_flx_img;
 
 void	flx_open_window(void);
 void	flx_main_loop(GLFWwindow *window);
 //void	flx_putimg(GLFWwindow *window, GLFWimage *image, GLuint x, GLuint y);
-flx_t	*flx_init(void);
-void 	flx_terminate(flx_t *flx);
+t_flx	*flx_init(void);
+void	flx_terminate(t_flx *flx);
 
 #endif
