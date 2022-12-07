@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:55:33 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/06 19:30:28 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:42:52 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void		init_struct(t_flx	*flx);
 static t_bool	init_window(t_flx	*flx);
 static t_bool	check_params(void);
+static t_bool	init_shaders(t_flx *flx);
 
 t_flx	*flx_init(void)
 {
@@ -28,7 +29,7 @@ t_flx	*flx_init(void)
 			init_struct(flx);
 			if (glfwInit())
 			{
-				if (init_window(flx))
+				if (init_window(flx) && init_shaders(flx))
 				{
 					return (flx);
 				}
@@ -45,22 +46,6 @@ static void	init_struct(t_flx *flx)
 	flx->height = WIDTH;
 	flx->widht = HEIGHT;
 	flx->name = WINDOW_NAME;
-	glActiveTexture(GL_TEXTURE0);
-	glGenVertexArrays(1, &(flx->vao));
-	glGenBuffers(1, &(flx->vbo));
-	glBindVertexArray(flx->vao);
-	glBindBuffer(GL_ARRAY_BUFFER, flx->vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(t_vertex), NULL);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(t_vertex),
-		(void *)(sizeof(float) * 3));
-	glEnableVertexAttribArray(1);
-	glVertexAttribIPointer(2, 1, GL_BYTE, sizeof(t_vertex),
-		(void *)(sizeof(float) * 5));
-	glEnableVertexAttribArray(2);
-	glEnable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 static t_bool	check_params(void)
@@ -86,4 +71,28 @@ static t_bool	init_window(t_flx *flx)
 	glfwMakeContextCurrent(flx->window);
 	glfwGetFramebufferSize(flx->window, &flx->height, &flx->widht);
 	return (true);
+}
+
+static t_bool	init_shaders(t_flx *flx)
+{
+	GLuint	vertex_shader;
+	GLuint	fragment_shader;
+
+	flx->shader_program = glCreateProgram();
+	if (flx->shader_program)
+	{
+		vertex_shader = glCreateShader(GL_VERTEX_ARRAY);
+		glShaderSource(vertex_shader, 1, &g_vert_shader, NULL);
+		glCompileShader(vertex_shader);
+		fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragment_shader, 1, &g_frag_shader, NULL);
+		glCompileShader(fragment_shader);
+		glAttachShader(flx->shader_program, vertex_shader);
+		glAttachShader(flx->shader_program, fragment_shader);
+		glLinkProgram(flx->shader_program);
+		glDeleteShader(vertex_shader);
+		glDeleteShader(fragment_shader);
+		return (true);
+	}
+	return (false);
 }

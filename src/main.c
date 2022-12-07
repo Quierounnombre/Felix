@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:54:19 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/06 15:17:35 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:41:54 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(void)
 	{
 		flx_open_window();
 		flx_main_loop(flx->window);
-		//flx_putimg();
 	}
 	flx_terminate(flx);
 	system ("Leaks Felix");

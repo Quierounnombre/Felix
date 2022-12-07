@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/06 19:28:33 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:42:57 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,17 @@
 #  define WIDTH 800
 # endif
 
+extern const char	*g_vert_shader;
+extern const char	*g_frag_shader;
+
 typedef struct s_felix
 {
 	GLFWwindow	*window;
 	void		*context;
-	int			widht;
-	int			height;
+	int32_t		widht;
+	int32_t		height;
 	double		delta_time;
+	GLuint		shader_program;
 	GLuint		vao;
 	GLuint		vbo;
 	char		*name;

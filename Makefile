@@ -6,7 +6,7 @@
 #    By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 11:50:05 by vicgarci          #+#    #+#              #
-#    Updated: 2022/12/02 18:20:00 by vicgarci         ###   ########.fr        #
+#    Updated: 2022/12/07 17:26:54 by vicgarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ GLFW3 = glfw_build/src/libglfw3.a
 GLAD = glad/glad.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra -Werror -Wstrict-prototypes -Wmissing-prototypes -O3
 RM = rm -f
 
 FILES = src/flx_open_window.c \
@@ -25,14 +25,17 @@ FILES = src/flx_open_window.c \
 		src/flx_init.c \
 		src/main.c
 
-#src/flx_putimg.c
+SHADER = 	shaders/default.frag \
+			shaders/default.vert
 
 OBJS = ${FILES:.c=.o}
 
+SH_OBJS = ${SHADER:.*=.o}
+
 all: libft glad glfw3 $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(LIBFT) $(GLAD) $(GLFW3) $(OBJS) -o $(NAME) -framework Cocoa -framework OpenGL -framework IOKit
+$(NAME): $(OBJS) $(SH_OBJS)
+	$(CC) $(CFLAGS) $(LIBFT) $(GLAD) $(GLFW3) $(OBJS) $(SH_OBJS) -o $(NAME) -framework Cocoa -framework OpenGL -framework IOKit
 
 clean:
 	$(RM) $(OBJS)
