@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:55:33 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/14 13:33:49 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:53:47 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_flx	*flx_init(void)
 			init_struct(flx);
 			if (glfwInit())
 			{
-				if (init_window(flx) && flx_shaders(flx))
+				if (init_window(flx))
 				{
 					return (flx);
 				}
@@ -61,12 +61,17 @@ static t_bool	init_window(t_flx *flx)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	flx->window = glfwCreateWindow(HEIGHT, WIDTH, WINDOW_NAME, NULL, NULL);
+	flx->window = glfwCreateWindow(flx->height, flx->widht, flx->name,
+			NULL, NULL);
 	if (flx->window == NULL)
 	{
 		glfwTerminate();
 		return (false);
 	}
+	gladLoadGL();
+	glViewport(0, 0, flx->widht, flx->height);
+	if (!flx_shaders(flx))
+		return (false);
 	glfwMakeContextCurrent(flx->window);
 	glfwGetFramebufferSize(flx->window, &flx->height, &flx->widht);
 	return (true);

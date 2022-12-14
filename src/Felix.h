@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/14 13:27:27 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:06:52 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_image
 }				t_flx_img;
 
 void	flx_open_window(void);
-void	flx_main_loop(GLFWwindow *window);
+void	flx_main_loop(t_flx *flx);
 //void	flx_putimg(GLFWwindow *window, GLFWimage *image, GLuint x, GLuint y);
 void	flx_terminate(t_flx *flx);
 

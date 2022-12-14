@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:01:16 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/14 13:42:57 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:04:42 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ t_bool	flx_shaders(t_flx *flx)
 		glLinkProgram(flx->shader_program);
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
+		GLfloat	vertices[] =
+		{
+			-0.5f, -0.5f * (float)(sqrt(3)) / 3, 0.0f, // Lower left corner
+			0.5f, -0.5f * (float)(sqrt(3)) / 3, 0.0f, // Lower right corner
+			0.0f, 0.5f * (float)(sqrt(3)) * 2 / 3, 0.0f // Upper corner
+		};
+		glGenVertexArrays(1, &flx->vao);
+		glGenBuffers(1, &flx->vbo);
+		glBindVertexArray(flx->vao);
+		glBindBuffer(GL_ARRAY_BUFFER, flx->vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
 		return (true);
 	}
 	return (false);
