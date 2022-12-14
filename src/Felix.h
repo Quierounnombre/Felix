@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/07 17:42:57 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:27:27 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@
 #  define WIDTH 800
 # endif
 
-extern const char	*g_vert_shader;
-extern const char	*g_frag_shader;
+# ifndef PATH_VERTEX
+#  define PATH_VERTEX "../shaders/default.vertex"
+# endif
+
+# ifndef PATH_FRAG
+#  define PATH_FRAG "../shaders/default.frag"
+# endif
 
 typedef struct s_felix
 {
@@ -66,7 +71,10 @@ typedef struct s_image
 void	flx_open_window(void);
 void	flx_main_loop(GLFWwindow *window);
 //void	flx_putimg(GLFWwindow *window, GLFWimage *image, GLuint x, GLuint y);
-t_flx	*flx_init(void);
 void	flx_terminate(t_flx *flx);
+
+/*-----INIT-----*/
+t_flx	*flx_init(void);
+t_bool	flx_shaders(t_flx *flx);
 
 #endif
