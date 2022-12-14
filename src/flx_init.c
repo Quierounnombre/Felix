@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:55:33 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/14 17:53:47 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:41:12 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static t_bool	check_params(void)
 
 static t_bool	init_window(t_flx *flx)
 {
+	ft_printf("SIG 2\n");
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -65,14 +66,18 @@ static t_bool	init_window(t_flx *flx)
 			NULL, NULL);
 	if (flx->window == NULL)
 	{
+		ft_printf("No se ha podido crear una ventana\n");
 		glfwTerminate();
 		return (false);
 	}
-	gladLoadGL();
-	glViewport(0, 0, flx->widht, flx->height);
-	if (!flx_shaders(flx))
-		return (false);
+	ft_printf("SIG 3\n");
 	glfwMakeContextCurrent(flx->window);
 	glfwGetFramebufferSize(flx->window, &flx->height, &flx->widht);
+	ft_printf("SIG 4\n");
+	if (!flx_shaders(flx))
+		return (false);
+	ft_printf("SIG 5\n");
+	gladLoadGL();
+	glViewport(0, 0, flx->widht, flx->height);
 	return (true);
 }
