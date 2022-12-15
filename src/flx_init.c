@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:55:33 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/14 18:41:12 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:08:09y vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ t_flx	*flx_init(void)
 
 	if (check_params())
 	{
-		flx = malloc(sizeof(flx));
-		if (flx)
+		if (glfwInit())
 		{
-			init_struct(flx);
-			if (glfwInit())
+			flx = malloc(sizeof(flx));
+			if (flx)
 			{
+				init_struct(flx);
 				if (init_window(flx))
 				{
 					return (flx);
 				}
-				glfwTerminate();
+				free(flx);
 			}
-			free(flx);
+			glfwTerminate();
 		}
 	}
 	return (NULL);
@@ -42,8 +42,8 @@ t_flx	*flx_init(void)
 
 static void	init_struct(t_flx *flx)
 {
-	flx->height = WIDTH;
-	flx->widht = HEIGHT;
+	flx->height = HEIGHT;
+	flx->widht = WIDTH;
 	flx->name = WINDOW_NAME;
 }
 
@@ -74,10 +74,10 @@ static t_bool	init_window(t_flx *flx)
 	glfwMakeContextCurrent(flx->window);
 	glfwGetFramebufferSize(flx->window, &flx->height, &flx->widht);
 	ft_printf("SIG 4\n");
-	if (!flx_shaders(flx))
-		return (false);
 	ft_printf("SIG 5\n");
 	gladLoadGL();
 	glViewport(0, 0, flx->widht, flx->height);
+	if (!flx_shaders(flx))
+		return (false);
 	return (true);
 }

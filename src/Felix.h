@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/14 18:06:52 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:26:21 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef struct s_felix
 {
 	GLFWwindow	*window;
 	void		*context;
-	int32_t		widht;
-	int32_t		height;
+	int			widht;
+	int			height;
 	double		delta_time;
 	GLuint		shader_program;
 	GLuint		vao;

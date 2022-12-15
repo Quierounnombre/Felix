@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:01:16 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/14 18:50:38 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:41:34 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@ t_bool	flx_shaders(t_flx *flx)
 	char	*src_frag;
 
 	ft_printf("SIG 6\n");
-	flx->shader_program = glCreateProgram();
-	if (flx->shader_program && load_src(PATH_FRAG, &src_frag)
-		&& load_src(PATH_VERTEX, &src_vrt))
+	if (load_src(PATH_FRAG, &src_frag) && load_src(PATH_VERTEX, &src_vrt))
 	{
-		ft_printf("SIG 7\n");
 		vertex = glCreateShader(GL_VERTEX_SHADER);
+		ft_printf("SIG 1\n");
 		glShaderSource(vertex, 1, (const GLchar * const *)src_vrt, NULL);
 		glCompileShader(vertex);
-		ft_printf("SIG 1\n");
 		fragment = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragment, 1, (const GLchar * const *)src_frag, NULL);
 		glCompileShader(fragment);
+		flx->shader_program = glCreateProgram();
 		glAttachShader(flx->shader_program, vertex);
 		glAttachShader(flx->shader_program, fragment);
 		glLinkProgram(flx->shader_program);
@@ -78,6 +76,9 @@ static t_bool	load_src(char *path, char **src_vertex)
 			aux = ft_get_next_line(fd);
 		}
 		*src_vertex = s;
+		close(fd);
+		return (true);
 	}
+	close(fd);
 	return (false);
 }
