@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:43:30 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/15 15:26:21 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:03:48 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
 # endif
 
 # ifndef PATH_VERTEX
-#  define PATH_VERTEX "../shaders/default.vertex"
+#  define PATH_VERTEX "./shaders/default.vert"
 # endif
 
 # ifndef PATH_FRAG
-#  define PATH_FRAG "../shaders/default.frag"
+#  define PATH_FRAG "./shaders/default.frag"
 # endif
 
 typedef struct s_felix

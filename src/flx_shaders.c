@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:01:16 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/15 13:41:34 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:47:59 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_bool	flx_shaders(t_flx *flx)
 	if (load_src(PATH_FRAG, &src_frag) && load_src(PATH_VERTEX, &src_vrt))
 	{
 		vertex = glCreateShader(GL_VERTEX_SHADER);
-		ft_printf("SIG 1\n");
 		glShaderSource(vertex, 1, (const GLchar * const *)src_vrt, NULL);
+		ft_printf("SIG 1\n");
 		glCompileShader(vertex);
 		fragment = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragment, 1, (const GLchar * const *)src_frag, NULL);
@@ -61,22 +61,15 @@ t_bool	flx_shaders(t_flx *flx)
 static t_bool	load_src(char *path, char **src_vertex)
 {
 	int		fd;
-	char	*s;
-	char	*aux;
 
 	ft_printf("SIG 8\n");
 	fd = open(path, O_RDONLY);
+	ft_printf("\nFD-> %d\n", fd);
 	ft_printf("SIG 7\n");
-	if (fd)
+	if (fd > 2 && ft_store_file(fd, src_vertex))
 	{
-		aux = ft_get_next_line(fd);
-		while (aux)
-		{
-			s = ft_strjoin(s, aux);
-			aux = ft_get_next_line(fd);
-		}
-		*src_vertex = s;
-		close(fd);
+		system("Leaks Felix");
+		ft_printf("\n\n\n%s\n\n\n", *src_vertex);
 		return (true);
 	}
 	close(fd);
