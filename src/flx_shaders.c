@@ -6,42 +6,22 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:01:16 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/19 16:55:56 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:30:23 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Felix.h"
 
-static t_bool	load_src(char *path, char **src_vertex);
 static t_bool	compilation_sucesful(GLuint	to_be_checked);
+static t_bool	compile_shaders(char *path, GLuint *shader);
+static t_bool	make_program(GLuint *shader_program);
 
 t_bool	flx_shaders(t_flx *flx)
 {
-	GLuint	vertex;
-	GLuint	fragment;
-	char	*src_vrt;
-	char	*src_frag;
 
 	ft_printf("SIG 6\n");
-	if (load_src(PATH_FRAG, &src_frag) && load_src(PATH_VERTEX, &src_vrt))
+	if (make_program(&flx->shader_program))
 	{
-		ft_printf("SIG 1\n");
-		vertex = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertex, 1, (const GLchar * const *)&src_vrt, NULL);
-		glCompileShader(vertex);
-		if (!compilation_sucesful(vertex))
-			return (false);
-		fragment = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragment, 1, (const GLchar * const *)&src_frag, NULL);
-		glCompileShader(fragment);
-		if (!compilation_sucesful(fragment))
-			return (false);
-		flx->shader_program = glCreateProgram();
-		glAttachShader(flx->shader_program, vertex);
-		glAttachShader(flx->shader_program, fragment);
-		glLinkProgram(flx->shader_program);
-		glDeleteShader(vertex);
-		glDeleteShader(fragment);
 		GLfloat	vertices[] =
 		{
 			-0.5f, -0.5f * (float)(sqrt(3)) / 3, 0.0f, // Lower left corner
@@ -64,15 +44,45 @@ t_bool	flx_shaders(t_flx *flx)
 	return (false);
 }
 
-static t_bool	load_src(char *path, char **src_vertex)
+static t_bool	make_program(GLuint *shader_program)
+{
+	GLuint	vertex;
+	GLuint	fragment;
+
+	vertex = glCreateShader(GL_VERTEX_SHADER);
+	fragment = glCreateShader(GL_FRAGMENT_SHADER);
+	if (!vertex || !fragment)
+		return (false);
+	if (!compile_shaders(PATH_VERTEX, &vertex)
+		|| !compile_shaders(PATH_VERTEX, &fragment))
+		return (false);
+	*shader_program = glCreateProgram();
+	if (!(*shader_program))
+		return (false);
+	glAttachShader(*shader_program, vertex);
+	glAttachShader(*shader_program, fragment);
+	glLinkProgram(*shader_program);
+	glDeleteShader(vertex);
+	glDeleteShader(fragment);
+	return (true);
+}
+
+static t_bool	compile_shaders(char *path, GLuint *shader)
 {
 	int		fd;
+	char	*src;
 
-	ft_printf("SIG 8\n");
 	fd = open(path, O_RDONLY);
-	ft_printf("SIG 7\n");
-	if (fd > 2 && ft_store_file(fd, src_vertex))
-		return (true);
+	if (fd > 2 && ft_store_file(fd, &src))
+	{
+		close(fd);
+		glShaderSource(*shader, 1, (const GLchar * const *)&src, NULL);
+		glCompileShader(*shader);
+		free(src);
+		ft_printf("SIG 7\n");
+		if (compilation_sucesful(*shader))
+			return (true);
+	}
 	close(fd);
 	return (false);
 }
@@ -87,7 +97,7 @@ static t_bool	compilation_sucesful(GLuint	to_be_checked)
 	if (!succes)
 	{
 		glGetShaderInfoLog(to_be_checked, 512, NULL, log);
-		ft_printf("\n--------ERROR COMPILACIÓN SHADER--------\n%s\n\n");
+		ft_printf("\n--------ERROR COMPILATION SHADER--------\n%s\n\n");
 		return (false);
 	}
 	return (true);
