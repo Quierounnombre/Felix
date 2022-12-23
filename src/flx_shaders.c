@@ -6,7 +6,7 @@
 /*   By: vicgarci <vicgarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 13:01:16 by vicgarci          #+#    #+#             */
-/*   Updated: 2022/12/22 20:30:23 by vicgarci         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:37:11 by vicgarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ static t_bool	make_program(GLuint *shader_program)
 	if (!vertex || !fragment)
 		return (false);
 	if (!compile_shaders(PATH_VERTEX, &vertex)
-		|| !compile_shaders(PATH_VERTEX, &fragment))
+		|| !compile_shaders(PATH_FRAG, &fragment))
 		return (false);
+	ft_printf("SIG 8\n");
 	*shader_program = glCreateProgram();
 	if (!(*shader_program))
 		return (false);
@@ -78,6 +79,7 @@ static t_bool	compile_shaders(char *path, GLuint *shader)
 		close(fd);
 		glShaderSource(*shader, 1, (const GLchar * const *)&src, NULL);
 		glCompileShader(*shader);
+		ft_printf("Shader:\n%s\n", src);
 		free(src);
 		ft_printf("SIG 7\n");
 		if (compilation_sucesful(*shader))
@@ -94,10 +96,11 @@ static t_bool	compilation_sucesful(GLuint	to_be_checked)
 
 	succes = 0;
 	glGetShaderiv(to_be_checked, GL_COMPILE_STATUS, &succes);
+	ft_printf("SUCCES -> %d\nCHEKED -> %d\n", succes, to_be_checked);
 	if (!succes)
 	{
 		glGetShaderInfoLog(to_be_checked, 512, NULL, log);
-		ft_printf("\n--------ERROR COMPILATION SHADER--------\n%s\n\n");
+		ft_printf("\n--------ERROR COMPILATION SHADER--------\n%s\n\n", log);
 		return (false);
 	}
 	return (true);
